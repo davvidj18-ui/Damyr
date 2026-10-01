@@ -113,54 +113,27 @@
     spirals.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------------- Contact form ---------------- */
+  /* ---------------- Contact form (opens WhatsApp with the filled fields) ---------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
     if (!form) return;
-    var success = $("[data-form-success]");
 
     form.addEventListener("submit", function (e) {
       if (!form.reportValidity()) return;
       e.preventDefault();
 
-      var submitBtn = $('button[type="submit"]', form);
-      var originalLabel = submitBtn ? submitBtn.textContent : "";
-      if (submitBtn) {
-        submitBtn.textContent = "Enviando…";
-        submitBtn.disabled = true;
-      }
-
-      var endpoint = (data.contact && data.contact.formEndpoint) || form.action;
-      var body = new FormData(form);
-
-      fetch(endpoint, {
-        method: "POST",
-        body: body,
-        headers: { Accept: "application/json" }
-      })
-        .then(function () {
-          form.hidden = true;
-          if (success) success.classList.add("is-visible");
-        })
-        .catch(function () {
-          window.location.href =
-            "mailto:" + ((data.contact && data.contact.email) || "hola@damyr.mx") +
-            "?subject=" + encodeURIComponent("Solicitud de cita — Damyr") +
-            "&body=" + encodeURIComponent(summarizeForm(form));
-        })
-        .finally(function () {
-          if (submitBtn) {
-            submitBtn.textContent = originalLabel;
-            submitBtn.disabled = false;
-          }
-        });
+      var waNumber = ((data.contact && data.contact.whatsapp) || "https://wa.me/593986439950")
+        .replace(/^https?:\/\/wa\.me\//, "");
+      var text = "Hola Damyr, quisiera agendar una cita.\n\n" + summarizeForm(form);
+      var url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(text);
+      window.open(url, "_blank", "noopener");
     });
   }
 
   function summarizeForm(form) {
     var lines = [];
     $$("input, select, textarea", form).forEach(function (field) {
-      if (!field.name || field.type === "submit" || field.type === "hidden") return;
+      if (!field.name || field.type === "submit" || field.type === "hidden" || !field.value) return;
       var label = form.querySelector('label[for="' + field.id + '"]');
       var text = label ? label.textContent.trim() : field.name;
       lines.push(text + ": " + field.value);

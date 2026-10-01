@@ -26,13 +26,14 @@ Luego abre `http://localhost:8000`.
 ## Estructura del proyecto
 
 ```
-index.html        Home — hero, esencia de marca, promesa, tratamientos
-                   (preview), proceso de trabajo, personalidad, testimonio, CTA
+index.html        Home — hero, tratamientos (preview), proceso de trabajo,
+                   5 testimonios, CTA final
 servicios.html     Tratamientos — menú completo por categoría (facial,
                    corporal, bienestar, estética avanzada)
 agenda.html        Reserva directa — un botón que abre WhatsApp con mensaje
-                   prellenado, más horario y alternativa por correo
-contacto.html      Información de contacto + formulario de solicitud de cita
+                   prellenado, más horario y alternativa por el formulario
+contacto.html      Información de contacto + formulario que abre WhatsApp
+                   con los datos prellenados (sin backend ni correo)
 styles.css         Hoja de estilos única, organizada por secciones
 main.js            Punto de entrada (IIFE, sin ES modules) — nav, menú móvil,
                    scroll suave, reveals on-scroll, dibujo del isotipo espiral,
@@ -47,24 +48,19 @@ assets/img/
 .htaccess          Cabeceras de caché para Hostinger/Apache
 ```
 
-## Datos pendientes por confirmar (placeholders)
+## Datos de contacto
 
-Antes de publicar, reemplaza estos datos de ejemplo por los reales:
-
-- **Dirección** del atelier (`contacto.html`, `lib/manifest.js`)
-- **Teléfono / WhatsApp**: actualmente `+52 55 1234 5678` en todas las páginas
-  y en `lib/manifest.js` (`contact.whatsapp`)
-- **Correo**: actualmente `hola@damyr.mx` — usado también como destino del
-  formulario de contacto (`contacto.html`, atributo `action` del `<form>` y
-  `lib/manifest.js` → `contact.formEndpoint`, vía [FormSubmit](https://formsubmit.co))
-- **Instagram**: enlace de ejemplo `instagram.com/damyr`
-- **Horario**: confirmar días y horas reales
+- **Ubicación**: Urdesa, Víctor Emilio Estrada, Guayaquil (`contacto.html`,
+  `lib/manifest.js` → `contact.address`)
+- **Teléfono / WhatsApp**: `+593 98 643 9950` en todas las páginas y en
+  `lib/manifest.js` (`contact.whatsapp`)
+- **Instagram**: [@damyr.medicinaestetica](https://instagram.com/damyr.medicinaestetica)
+- **Correo**: no se usa — el centro atiende por WhatsApp y teléfono
+- **Horario**: confirmar días y horas reales (actualmente un horario de
+  ejemplo: lun-vie 9:00–19:00, sáb 9:00–15:00, dom cerrado)
 - **Menú de tratamientos** (`servicios.html`): las categorías y duraciones son
   una propuesta profesional razonable, no un catálogo confirmado por Damyr.
   Ajusta nombres, duraciones y agrega precios si decides mostrarlos.
-- **WhatsApp de agenda** (`agenda.html`, `index.html`): el botón "Agendar
-  por WhatsApp" usa `wa.me/525512345678` con un mensaje prellenado —
-  actualízalo al número real.
 - **Fotografía**: el sitio todavía no incluye fotografía — se apoya en la
   paleta, tipografía y el isotipo espiral mientras se consigue fotografía
   real del espacio y del equipo (luz natural, materiales cálidos, retratos
@@ -72,15 +68,12 @@ Antes de publicar, reemplaza estos datos de ejemplo por los reales:
 
 ## Formulario de contacto
 
-`contacto.html` envía por POST a [FormSubmit](https://formsubmit.co) sin
-backend propio. Si el envío falla (por ejemplo, mientras el correo de
-destino no esté verificado en FormSubmit), cae automáticamente a un
-`mailto:` con los datos del formulario prellenados, así el formulario nunca
-deja al visitante sin poder contactar.
-
-**Importante:** la primera vez que alguien complete el formulario con la
-dirección real, FormSubmit envía un correo de confirmación a esa dirección
-que hay que aprobar una sola vez para activar el envío automático.
+`contacto.html` no usa backend ni correo: al enviarlo, `main.js` arma un
+mensaje de WhatsApp con los campos completados (nombre, teléfono, tratamiento
+de interés, horario preferido y mensaje) y abre `wa.me` en una pestaña nueva
+con ese texto prellenado, listo para enviar. Si el visitante tiene
+JavaScript desactivado, el botón "Agendar por WhatsApp" de `agenda.html`
+sigue disponible como enlace directo sin depender de JS.
 
 ## Desplegar / actualizar
 
