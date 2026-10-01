@@ -8,10 +8,9 @@ Dirección visual: **editorial cream con identidad Damyr** — fondo Marfil
 (#F1EAE0), Carbón (#262320) para texto, Latón (#A97D3E) como acento cálido,
 Vino Profundo (#6E2F2A) para énfasis, Taupe Cálido (#6B675F) como color
 secundario. Tipografía Instrument Serif (titulares) + Public Sans (cuerpo).
-El isotipo espiral de la marca (geometría abierta, sin cierres duros) se usa
-como firma gráfica recurrente: en el logo, como decoración animada en el
-hero y como elemento visual en la página "Nosotras" — evitando fotografía
-de stock genérica mientras no haya fotografía real de la marca.
+El isotipo espiral de la marca (el logo real, provisto por el cliente) se usa
+en el nav, el footer y el favicon; una versión decorativa de fondo se anima
+al entrar en el hero.
 
 ## Ver el sitio localmente
 
@@ -31,7 +30,8 @@ index.html        Home — hero, esencia de marca, promesa, tratamientos
                    (preview), proceso de trabajo, personalidad, testimonio, CTA
 servicios.html     Tratamientos — menú completo por categoría (facial,
                    corporal, bienestar, estética avanzada)
-nosotras.html      Historia de marca, valores, equipo y el espacio (atelier)
+agenda.html        Reserva directa — un botón que abre WhatsApp con mensaje
+                   prellenado, más horario y alternativa por correo
 contacto.html      Información de contacto + formulario de solicitud de cita
 styles.css         Hoja de estilos única, organizada por secciones
 main.js            Punto de entrada (IIFE, sin ES modules) — nav, menú móvil,
@@ -41,6 +41,9 @@ lib/
   manifest.js         Datos de marca de referencia (window.__BRAND__)
   gsap.min.js          GSAP (motor de animación, reservado para uso futuro)
   ScrollTrigger.min.js Plugin de scroll de GSAP
+assets/img/
+  logo-mark.png        Isotipo espiral (logo real, fondo transparente, tono Latón)
+  favicon.png           Favicon — isotipo en Latón sobre fondo Carbón
 .htaccess          Cabeceras de caché para Hostinger/Apache
 ```
 
@@ -59,14 +62,13 @@ Antes de publicar, reemplaza estos datos de ejemplo por los reales:
 - **Menú de tratamientos** (`servicios.html`): las categorías y duraciones son
   una propuesta profesional razonable, no un catálogo confirmado por Damyr.
   Ajusta nombres, duraciones y agrega precios si decides mostrarlos.
-- **Equipo** (`nosotras.html`): las tres tarjetas de equipo usan roles
-  genéricos con inicial en vez de nombre real (no se contaba con fotos ni
-  nombres del equipo). Reemplázalas por las expertas reales del centro.
-- **Fotografía**: el sitio no usa fotografía de stock — se apoya en la
-  paleta, tipografía y el isotipo espiral. Cuando haya fotografía real del
-  espacio y del equipo (luz natural, materiales cálidos, retratos serenos,
-  como pide el brand book), se puede añadir en `assets/img/` sustituyendo
-  las secciones marcadas visualmente (hero, story-visual, team-avatar).
+- **WhatsApp de agenda** (`agenda.html`, `index.html`): el botón "Agendar
+  por WhatsApp" usa `wa.me/525512345678` con un mensaje prellenado —
+  actualízalo al número real.
+- **Fotografía**: el sitio todavía no incluye fotografía — se apoya en la
+  paleta, tipografía y el isotipo espiral mientras se consigue fotografía
+  real del espacio y del equipo (luz natural, materiales cálidos, retratos
+  serenos, como pide el brand book).
 
 ## Formulario de contacto
 
