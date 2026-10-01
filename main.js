@@ -113,7 +113,7 @@
     spirals.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------------- Contact form (opens WhatsApp with the filled fields) ---------------- */
+  /* ---------------- Contact form (opens the WhatsApp link) ---------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
     if (!form) return;
@@ -122,23 +122,9 @@
       if (!form.reportValidity()) return;
       e.preventDefault();
 
-      var waNumber = ((data.contact && data.contact.whatsapp) || "https://wa.me/593986439950")
-        .replace(/^https?:\/\/wa\.me\//, "");
-      var text = "Hola Damyr, quisiera agendar una cita.\n\n" + summarizeForm(form);
-      var url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(text);
+      var url = (data.contact && data.contact.whatsapp) || "https://wa.link/9u8v8s";
       window.open(url, "_blank", "noopener");
     });
-  }
-
-  function summarizeForm(form) {
-    var lines = [];
-    $$("input, select, textarea", form).forEach(function (field) {
-      if (!field.name || field.type === "submit" || field.type === "hidden" || !field.value) return;
-      var label = form.querySelector('label[for="' + field.id + '"]');
-      var text = label ? label.textContent.trim() : field.name;
-      lines.push(text + ": " + field.value);
-    });
-    return lines.join("\n");
   }
 
   /* ---------------- Boot ---------------- */
